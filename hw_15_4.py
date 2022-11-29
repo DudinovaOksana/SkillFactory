@@ -19,8 +19,9 @@ for string in file:
 more_3_words = [x for x in spisok_slov if len(x)>3]
 #делаем словарь, в котором ключ - это слово, а значение - это количество повторений этого слова
 common_word_dict = {x:more_3_words.count(x) for x in more_3_words}
-#выбираем из словаря наиболее часто встречающееся слово с помощью функции max()
-common_word = max(common_word_dict, key = common_word_dict.get)
+#выбираем из словаря наиболее часто встречающееся слово/слова
+max_value = max(common_word_dict.values())
+common_word = {k: v for k, v in common_word_dict.items() if v == max_value}
 #содаем регулярное выражение для поиска только английских слов
 r = re.compile('[a-zA-Z]+')
 #c помощью list comprehension в отдельный список записываем только английские слова
@@ -28,7 +29,7 @@ output = [w for w in filter(r.match, spisok_slov)]
 #при помощи функции max() отбираем самое длинное английское слово
 english_longest_word = max(output, key=len)
 #вывод полученных результатов на экран
-print(f'Наиболее часто встречающееся слово из 3-х символов: {common_word}')
+print('Наиболее часто встречающееся слово/слова в котором(ых) больше 3-х символов:'+',' .join(common_word.keys()))
 print(f'Самое длинное слово на английском языке: {english_longest_word}')
 #закрываем открытый для чтения файл
 myfile.close()
